@@ -1,0 +1,32 @@
+<tool id="image_embedding_generator" name="Image Embedding Generator" version="1.1.0">
+    <description>Generate image embeddings from a zip file using ResNet, VGG, or Foundation models</description>
+    <command>
+        python3 $__tool_directory__/image_embedding_generator.py \
+            --zip "$input_zip" \
+            --model "$model" \
+            --output "$output_csv"
+    </command>
+    <inputs>
+        <param name="input_zip" type="data" format="zip" label="Input ZIP file with images"/>
+        <param name="model" type="select" label="Choose model">
+            <option value="resnet">ResNet</option>
+            <option value="vgg">VGG</option>
+            <option value="foundation">Foundation Model</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="output_csv" format="csv" label="CSV file with image embeddings"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_zip" value="test_images.zip"/>
+            <param name="model" value="resnet"/>
+            <output name="output_csv" file="output_embeddings.csv"/>
+        </test>
+    </tests>
+    <help>
+        This tool generates embeddings for images in a zip file using deep learning models (ResNet, VGG, or a foundation model). 
+        The output is a CSV file where each row represents an image from the zip file, with its filename and corresponding embedding values.
+    </help>
+</tool>
+

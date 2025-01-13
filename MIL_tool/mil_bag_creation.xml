@@ -1,0 +1,42 @@
+<tool id="mil_bag_creator" name="Multiple Instance Learning Bag Creator" version="1.0.0">
+    <description>Creates multiple-instance learning bags and merges embeddings.</description>
+    <command>
+        python3 $__tool_directory__/mil_bag_creator.py \
+            --embeddings "$input_embeddings" \
+            --labels "$input_labels" \
+            --output "$output_csv" \
+            --bag_size "$bag_size" \
+            --merge_method "$merge_method" \
+            --output_format "$output_format" \
+            #if $use_split == "true"
+            --use_split
+            #end if
+            #if $enforce_balance == "true"
+            --enforce_balance
+            #end if
+    </command>
+    <inputs>
+        <param name="input_embeddings" type="data" format="csv" label="Input CSV with embeddings"/>
+        <param name="input_labels" type="data" format="csv" label="Input CSV with labels and split"/>
+        <param name="use_split" type="boolean" label="Use split column?" truevalue="true" falsevalue="false" checked="false"/>
+        <param name="bag_size" type="integer" label="Bag size"/>
+        <param name="merge_method" type="select" label="Embedding merge method">
+            <option value="average">Average Pooling</option>
+            <option value="max">Max Pooling</option>
+            <option value="softmax">Softmax Pooling</option>
+            <option value="logistic">Logistic Regression Pooling</option>
+        </param>
+        <param name="enforce_balance" type="boolean" label="Enforce balance?" truevalue="true" falsevalue="false" checked="false"/>
+        <param name="output_format" type="select" label="Output format">
+            <option value="single_column">Single column</option>
+            <option value="multi_column">Multi column</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="output_csv" format="csv" label="Output CSV with bags"/>
+    </outputs>
+    <help>
+        This tool creates bags for multiple-instance learning by merging embeddings based on user-selected strategies.
+    </help>
+</tool>
+
