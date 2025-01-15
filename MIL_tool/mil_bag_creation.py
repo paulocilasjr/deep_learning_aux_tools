@@ -122,3 +122,4 @@ if __name__ == "__main__":
     bags = create_bags(embeddings, labels, args.use_split, args.bag_size, args.enforce_balance)
     merged_bags = merge_embeddings(bags, args.merge_method)
     save_bags(args.output, merged_bags, args.output_format)
+
